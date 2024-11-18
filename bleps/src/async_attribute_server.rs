@@ -181,6 +181,11 @@ where
             };
 
             if let Some(notification) = notification {
+                /// HieuNM add 31/10/2024: kiểm tra handle đặc biệt (0xFFFF) để signal disconnect
+                if notification.handle == 0xFFFF {
+                    break;
+                }
+
                 critical_section::with(|cs| {
                     notification_to_send
                         .borrow_ref_mut(cs)
